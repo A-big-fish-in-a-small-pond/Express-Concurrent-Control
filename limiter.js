@@ -9,36 +9,64 @@ class Concurrentqueue {
 
     qpush(active) {
         this.queue.push(active);
-        console.log("현재 " + this.queue.length + "번 째 입니다.");
         this.queue2SCV();
     }
 
     queue2SCV() {
-        let func = this.queue.shift();
-        let k = 0;
         for (let i = 0; i < this.SCV.length; i++) {
             if (this.SCV[i] == true) {
                 this.SCV[i] = false;
-                k = 1;
-                func();
-                this.SCV[i] = true;
+                return this.process(i);
             }
         }
     }
+
+    process(idx) {
+        return new Promise(async (resolve) => {
+            while (true) {
+                if (this.queue.length > 0) {
+                    let func = this.queue.shift();
+                    await func();
+                } else {
+                    this.SCV[idx] = true;
+                    return resolve();
+                }
+            }
+        });
+    }
 }
 
-// module.exports.Concurrentqueue = Concurrentqueue;
-
-let q = new Concurrentqueue(2);
-console.log(q.SCV.length);
-let k = 0;
+let q = new Concurrentqueue(4);
 
 async function a() {
-    setTimeout(() => {
-        console.log("gdgd");
-    }, 1000);
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log("gdgd");
+            resolve();
+        }, 1000);
+    });
 }
 
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
+q.qpush(a);
 q.qpush(a);
 q.qpush(a);
 q.qpush(a);
