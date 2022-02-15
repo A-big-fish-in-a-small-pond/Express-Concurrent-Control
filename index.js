@@ -1,11 +1,19 @@
 const express = require("express");
-const { ExpressLimit } = require("./limiter");
+const { expressLimit } = require("./limit/limiter");
 const app = express();
-const expressLimit = new ExpressLimit();
+
+const limiter = expressLimit({
+    maxPerMinute: 30,
+    resetTime: 60,
+    errorCodeNumber: 404,
+    handler: (req, res, next) => {
+        res.json({ errorHandler: "fuck" });
+    },
+});
 
 /** middleware */
 app.use(express.json());
-app.use(expressLimit.checkLimitHandler);
+app.use(limiter.checkLimitHandler);
 app.use("/", (req, res) => {
     return res.json({ success: "end" });
 });
