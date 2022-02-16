@@ -11,7 +11,7 @@ const limiter = expressLimit({
     },
 });
 
-/** middleware */
+/** middle ware */
 app.use(express.json());
 app.use(limiter.checkLimitHandler);
 app.use("/", (req, res) => {
