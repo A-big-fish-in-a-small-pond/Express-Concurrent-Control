@@ -1,8 +1,8 @@
 class Concurrentqueue {
-    constructor(QLength) {
+    constructor(SCVLength) {
         this.queue = [];
         this.SCV = [];
-        for (let i = 0; i < QLength; i++) {
+        for (let i = 0; i < SCVLength; i++) {
             this.SCV[i] = true; //SCV = true : rest,       SCV = false : work
         }
     }
@@ -21,54 +21,15 @@ class Concurrentqueue {
         }
     }
 
-    process(idx) {
-        return new Promise(async (resolve) => {
-            while (true) {
-                if (this.queue.length > 0) {
-                    let func = this.queue.shift();
-                    await func();
-                } else {
-                    this.SCV[idx] = true;
-                    return resolve();
-                }
+    async process(idx) {
+        while (true) {
+            if (this.queue.length > 0) {
+                let func = this.queue.shift();
+                await func();
+            } else {
+                this.SCV[idx] = true;
+                return;
             }
-        });
+        }
     }
 }
-
-let q = new Concurrentqueue(4);
-
-async function a() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            console.log("gdgd");
-            resolve();
-        }, 1000);
-    });
-}
-
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);
-q.qpush(a);

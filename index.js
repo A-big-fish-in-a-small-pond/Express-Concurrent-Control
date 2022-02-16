@@ -3,7 +3,7 @@ const { ExpressLimit } = require("./limiter");
 const app = express();
 const expressLimit = new ExpressLimit();
 
-/** middleware */
+/** middle ware */
 app.use(express.json());
 app.use(expressLimit.checkLimitHandler);
 app.use("/", (req, res) => {
