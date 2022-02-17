@@ -1,14 +1,15 @@
 /** imports */
 const _ = require("lodash");
 const { limiterOption, errorCode, REDIS, CUSTOM } = require("./options");
-const { MapStore, RedisStore } = require("./store");
+const { MapStore, RedisStore, BlankStore } = require("./store");
+const blankStore = new BlankStore(null);
 
 /** Limit Class */
 function ExpressLimit(options = limiterOption) {
     this.maxPerMinute = options.maxPerMinute;
     this.resetTime = options.resetTime;
 
-    this.accessStore = null;
+    this.accessStore = blankStore;
     this.objFromipv4 = {
         count: 0,
         start: 0,
@@ -20,6 +21,7 @@ function ExpressLimit(options = limiterOption) {
 }
 
 ExpressLimit.prototype.setAccessStore = function (store = undefined) {
+    delete blankStore;
     if (this.type == REDIS) {
         this.accessStore = new RedisStore(store);
     } else if (this.type == CUSTOM) {

@@ -43,10 +43,13 @@ const limiter = expressLimit.expressLimit({
     maxPerMinute: 30,
     resetTime: 60,
     errorCodeNumber: 404,
+    type: "default", // 레디스를 사용하고자 하면 redis 를 넣어줍니다.
     handler: (req, res, next) => {
         res.json({ errorHandler: "this page is exceed request page" });
     },
 });
+
+limiter.setAccessStore();
 
 const conLimiter = expressLimit.createConcurrentQueue(2);
 
@@ -68,12 +71,56 @@ const limiter = expressLimit.expressLimit({
     maxPerMinute: 30, // 분당 요청할 수 있는 최대 횟수
     resetTime: 60, // 60초로 지정
     errorCodeNumber: 404, // 요청이 초과할 시에 response Code
+    type: "default", // 레디스를 사용하고자 하면 redis 를 넣어줍니다.
     handler: (req, res, next) => {
         // 요청 초과 시 callback handler
         res.json({ errorHandler: "this page is exceed request page" });
     },
 });
+
+limiter.setAccessStore(); // 기본 저장소를 생성합니다.
 ```
+
+다음은 저장소를 레디스로 변경하고자 할 때 사용합니다.
+
+```ts
+import rateLimit from "express-rate-limit";
+
+const limiter = expressLimit.expressLimit({
+    maxPerMinute: 30, // 분당 요청할 수 있는 최대 횟수
+    resetTime: 60, // 60초로 지정
+    errorCodeNumber: 404, // 요청이 초과할 시에 response Code
+    type: "redis", // 레디스를 사용하고자 하면 redis 를 넣어줍니다.
+    handler: (req, res, next) => {
+        // 요청 초과 시 callback handler
+        res.json({ errorHandler: "this page is exceed request page" });
+    },
+});
+
+limiter.setAccessStore(redisclient); // 레디스 클라이언트를 지정합니다.
+```
+
+레디스 외의 다른 라이브러리를 사용하거나 추가하여 세션을 제어할 때는 클래스를 구현하여 인스턴스를 집어넣어주시면 됩니다. 클래스 생성 방법은 아래와 같습니다.
+
+```ts
+class Store {
+    constructor(store) {
+        this.store = store;
+    }
+
+    async get(...rest) {
+        print("this is prototype...");
+        return null;
+    }
+
+    async set(...rest) {
+        print("this is prototype...");
+        return null;
+    }
+}
+```
+
+저장소 클래스를 만들어서 setAccessStore 메소드를 통해 저장소를 변경하면 되겠습니다.
 
 ### createConcurrentQueue
 
