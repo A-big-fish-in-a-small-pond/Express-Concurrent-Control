@@ -6,12 +6,15 @@ const limiter = expressLimit.expressLimit({
     maxPerMinute: 30,
     resetTime: 60,
     errorCodeNumber: 404,
+    type: "default", // 레디스를 사용하고자 하면 redis 를 넣어줍니다.
     handler: (req, res, next) => {
         res.json({ errorHandler: "this page is exceed request page" });
     },
 });
+limiter.setAccessStore();
 
-const conLimiter = expressLimit.createConcurrentQueue(2);
+/** 레디스를 등록하는 함수입니다. */
+const conLimiter = expressLimit.createConcurrentQueue(1);
 
 /** middle ware */
 app.use(express.json());
@@ -21,7 +24,7 @@ app.use(conLimiter.checkLimitHandler);
 app.use("/abs", (req, res) => {
     setTimeout(() => {
         res.json({ success: "end page" });
-    }, 10000);
+    }, 1);
 });
 
 app.listen(3000, "0.0.0.0", () => {
