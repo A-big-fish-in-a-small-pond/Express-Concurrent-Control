@@ -11,6 +11,7 @@ class Store {
 
     async set(...rest) {
         print("this is prototype...");
+        return null;
     }
 }
 
@@ -56,5 +57,6 @@ class MapStore extends Store {
     }
 }
 
+module.exports.BlankStore = Store;
 module.exports.RedisStore = RedisStore;
 module.exports.MapStore = MapStore;
