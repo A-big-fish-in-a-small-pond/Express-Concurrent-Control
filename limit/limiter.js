@@ -1,5 +1,6 @@
 /** imports */
 const _ = require("lodash");
+const { createKey, enCrypt } = require("./aes");
 const { limiterOption, errorCode, REDIS, CUSTOM } = require("./options");
 const { MapStore, RedisStore, BlankStore } = require("./store");
 const blankStore = new BlankStore(null);
@@ -18,6 +19,7 @@ function ExpressLimit(options = limiterOption) {
 
     this.handler = options.handler;
     this.type = options.type;
+    this.key = createKey(options.key);
 }
 
 ExpressLimit.prototype.setAccessStore = function (store = undefined) {
@@ -94,8 +96,9 @@ ExpressLimit.prototype.checkAccessLimit = async function (ipv4) {
  */
 ExpressLimit.prototype.checkLimitHandler = async function (req, res, next) {
     let ipv4 = req.ip;
+    let encryptIP = enCrypt(ipv4, expressLimitInstance.key);
 
-    if (await expressLimitInstance.checkAccessLimit(ipv4)) {
+    if (await expressLimitInstance.checkAccessLimit(encryptIP)) {
         next();
     } else {
         if (expressLimitInstance.handler != null) {

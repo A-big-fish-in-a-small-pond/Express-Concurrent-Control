@@ -4,6 +4,7 @@ const limiterOption = {
     errorCodeNumber: 404,
     handler: null,
     type: "default",
+    key: "jongsunDeeplearningMode",
 };
 
 const errorCode = {

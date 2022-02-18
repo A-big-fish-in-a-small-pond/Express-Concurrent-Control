@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "crpyto": "0.0.1-security",
+    "crypto": "^1.0.1",
     "express": "^4.17.2",
     "lodash": "^4.17.21"
   }
