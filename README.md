@@ -145,4 +145,5 @@ If you need help with something, feel free to
 
 ## License
 
+MIT © [Park and Kim](http://github.com/nusgnojkrap)
 MIT © [Park and Kim](http://github.com/libtv)
