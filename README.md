@@ -35,7 +35,7 @@ From Github Releases:
 아래는 CJS 형태에서 임포트를 하기 위한 방법입니다.
 
 ```ts
-const { expressLimit } = require("./limit");
+const { expressLimit } = require("express-access-limit");
 ```
 
 ### Examples
