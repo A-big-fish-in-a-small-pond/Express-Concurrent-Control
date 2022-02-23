@@ -1,6 +1,6 @@
 {
     "name": "express-access-limit",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "익스프레스 요청 바디 부분 암호화 처리 라이브러리",
     "keywords": [
         "express",
