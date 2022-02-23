@@ -1,18 +1,32 @@
 {
-  "name": "express-access-limit",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "crpyto": "0.0.1-security",
-    "crypto": "^1.0.1",
-    "express": "^4.17.2",
-    "lodash": "^4.17.21"
-  }
+    "name": "express-access-limit",
+    "version": "1.0.2",
+    "description": "익스프레스 요청 바디 부분 암호화 처리 라이브러리",
+    "keywords": [
+        "express",
+        "node"
+    ],
+    "homepage": "https://github.com/A-big-fish-in-a-small-pond/Express-Concurrent-Control",
+    "bugs": {
+        "url": "https://github.com/A-big-fish-in-a-small-pond",
+        "email": "libtv@naver.com"
+    },
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": {
+        "name": "김준호",
+        "email": "libtv@naver.com"
+    },
+    "contributors": [
+        "김준호 <libtv@naver.com>",
+        "박종선 <ahrl1994@gmail.com>"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "crypto": "^1.0.1",
+        "express": "^4.17.2",
+        "lodash": "^4.17.21"
+    }
 }

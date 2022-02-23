@@ -1,5 +1,5 @@
 const express = require("express");
-const { expressLimit } = require("./limit");
+const { expressLimit } = require("../dist");
 const app = express();
 
 const limiter = expressLimit.expressLimit({
