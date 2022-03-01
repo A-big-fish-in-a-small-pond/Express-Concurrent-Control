@@ -1,7 +1,7 @@
 {
     "name": "express-access-limit",
-    "version": "1.0.4",
-    "description": "익스프레스 요청 바디 부분 암호화 처리 라이브러리",
+    "version": "1.1.0",
+    "description": "익스프레스 전용 동시접속 제한 및 DDOS 방어 미들웨어",
     "keywords": [
         "express",
         "node"
