@@ -56,9 +56,11 @@ const limiter = expressLimit.expressLimit({
         res.json({ errorHandler: "this page is exceed request page" });
     },
 });
+
+/** 레디스를 등록하는 함수입니다. 
+레디스가 존재하지 않는다면 Store 의 값을 넣어주지 않으면 Default 로 생성됩니다. */
 limiter.setAccessStore();
 
-/** 레디스를 등록하는 함수입니다. */
 const conLimiter = expressLimit.createConcurrentQueue(1);
 
 /** middle ware */
